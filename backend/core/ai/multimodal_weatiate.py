@@ -16,6 +16,7 @@ from backend.settings import get_settings
 logger = logging.getLogger(__name__)
 
 class MultiModalWeaviateRetriever:
+    """Multi-modal retriever for Weaviate vector database."""
     def __init__(self, embeddings, collection_name: str):
         self._collection_name = collection_name
         self._settings = get_settings()
@@ -24,12 +25,14 @@ class MultiModalWeaviateRetriever:
         self.vector_store = self._init_vector_store()
     
     def _init_client(self) -> weaviate.WeaviateClient:
+        """Initialize Weaviate client."""
         client = weaviate.connect_to_local()
         if not client.is_ready():
             raise ConnectionError("Weaviate client is not ready. Check your Weaviate server.")
         return client
     
     def _init_vector_store(self) -> WeaviateVectorStore:
+        """Initialize Weaviate vector store."""
         self.client.connect()
         return WeaviateVectorStore(
             client=self.client,
@@ -78,4 +81,5 @@ class MultiModalWeaviateRetriever:
         return results
     
     def __del__(self):
+        """Ensure the Weaviate client is closed when the retriever is deleted."""
         self.client.close()

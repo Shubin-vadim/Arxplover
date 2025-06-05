@@ -6,6 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class TableProcessor:
+    """Processor for handling tables, including summarization."""
     def __init__(self, config: ConfigModel):
         self.config = config
         self.ai_service = AIService()

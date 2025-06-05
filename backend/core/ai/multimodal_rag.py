@@ -13,6 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class MultimodalRAG:
+    """Multimodal RAG (Retrieval-Augmented Generation) class for processing PDFs and generating answers."""
     def __init__(self, config: ConfigModel):
         self.config = config
         self.data_processor = DataProcessor(config)

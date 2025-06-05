@@ -8,6 +8,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class ImageProcessor:
+    """Processor for handling images, including resizing and summarization."""
     def __init__(self, config: ConfigModel):
         self.config = config
         self.ai_service = AIService()

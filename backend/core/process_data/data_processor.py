@@ -5,6 +5,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class DataProcessor:
+    """DataProcessor class for handling text tokenization and chunking."""
     def __init__(self, config: ConfigModel) -> None:
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=config.chunking.chunk_size,

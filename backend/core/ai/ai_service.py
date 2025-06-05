@@ -7,6 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class AIService:
+    """AIService class for interacting with OpenAI API."""
     def __init__(self):
         settings = get_settings()
         self.client = OpenAI(

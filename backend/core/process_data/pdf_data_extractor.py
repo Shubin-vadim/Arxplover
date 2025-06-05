@@ -9,7 +9,7 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 class PDFDataExtractor:
-    
+    """PDFDataExtractor class for extracting elements from PDF files using Docling."""
     @staticmethod
     def extract_elements(file_path: str, output_dir: str) -> dict:
         """

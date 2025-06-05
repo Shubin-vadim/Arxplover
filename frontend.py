@@ -14,23 +14,19 @@ async def set_starters():
         cl.Starter(
             label="Определение LLM",
             message="Что такое LLM?",
-            # icon="/home/user/Desktop/folders/myself/MultimodalRAG/icons/llm.svg",
             ),
 
         cl.Starter(
             label="Агентные системы",
             message="Какие основные компоненты и механизмы в LLM-агентах для построения одноагентных и многоагентных систем?",
-            # icon="/public/learn.svg",
             ),
         cl.Starter(
             label="Проблемы длинных контекстов",
             message="Какие проблемы возникают при использовании длинных контекстов в больших языковых моделях?",
-            # icon="/public/terminal.svg",
             ),
         cl.Starter(
             label="Methods for Alignment",
             message="What methods exist for aligning visual and textual representations?",
-            # icon="/public/write.svg",
             )
         ]
 
@@ -44,4 +40,4 @@ async def main(msg: cl.Message) -> None:
 
     response = rag_handler.query(msg.content)
 
-    await cl.Message(content=f'Response: {response}').send()
+    await cl.Message(content=response).send()
