@@ -23,7 +23,8 @@ class TableProcessor:
         results = [
             self.ai_service.send_request(
                 config=self.config,
-                prompt=SUMMARY_TABLES_PROMPT + "\n" + table,
+                system_prompt=SUMMARY_TABLES_PROMPT,
+                user_prompt=table,
                 image_path=None,
                 model=self.config.types_of_models.llm_name
             ) for table in tables

@@ -1,4 +1,4 @@
-from backend.core.ai.prompts.summary_images_prompt import SUMMARY_IMAGES_PROMPT
+from backend.core.ai.prompts.summary_images_prompt import SUMMARY_IMAGES_PROMPT, USER_IMAGES_PROMPT
 from backend.core.schemas.config_schemas import ConfigModel
 from backend.core.ai.ai_service import AIService
 from PIL import Image
@@ -27,7 +27,7 @@ class ImageProcessor:
         for path in image_paths:
             img = Image.open(path)
             img = img.convert('RGB')
-            img = img.resize(size, Image.LANCZOS)
+            img = img.resize(size)
             base, ext = os.path.splitext(path)
             new_path = f"{base}_resized{ext}"
             img.save(new_path)
@@ -53,7 +53,8 @@ class ImageProcessor:
         results = [
             self.ai_service.send_request(
                 config=self.config,
-                prompt=SUMMARY_IMAGES_PROMPT,
+                system_prompt=SUMMARY_IMAGES_PROMPT,
+                user_prompt=USER_IMAGES_PROMPT,
                 image_path=img_path,
                 model=self.config.types_of_models.mm_llm_name
             ) for img_path in image_paths

@@ -22,7 +22,6 @@ class MMLLMParametersModel(BaseModel):
 class VectorDataBaseModel(BaseModel):
     """Configuration for vector database parameters."""
     collection_name: str
-    id_key: str
     top_k: int
 
 class ConfigModel(BaseModel):
