@@ -3,8 +3,8 @@ chunking:
   chunk_overlap: 140
 
 types_of_models:
-  llm_name: openai/gpt-4o-2024-05-13
-  mm_llm_name: openai/gpt-4o-2024-05-13
+  llm_name: openai/gpt-4o-mini
+  mm_llm_name: openai/gpt-4o-mini
   embedding_model_name: intfloat/multilingual-e5-large-instruct
 
 llm_parameters:
@@ -14,7 +14,6 @@ mm_llm_parameters:
   temperature: 0.01
 
 vector_database_parameters:
-  collection_name: mm_rag_vectorstore
-  id_key: doc_id
+  collection_name: dev_llms_2024
   top_k: 5
 

@@ -7,6 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class AIService:
+    """AIService class for interacting with OpenAI API."""
     def __init__(self):
         settings = get_settings()
         self.client = OpenAI(
@@ -17,7 +18,8 @@ class AIService:
     def send_request(
         self,
         config: ConfigModel,
-        prompt: str,
+        system_prompt: str,
+        user_prompt: str | None = None,
         image_path: str | None = None,
         model: str = "openai/gpt-4o-2024-05-13",
     ) -> str:
@@ -33,7 +35,7 @@ class AIService:
         Returns:
             str: The model's response.
         """
-        logger.info(f"Sending request to OpenAI model '{model}' with prompt length {len(prompt)}.")
+        logger.info(f"Sending request to OpenAI model '{model}'.")
         if image_path:
             # Read and encode the image in base64
             with open(image_path, "rb") as img_file:
@@ -41,27 +43,46 @@ class AIService:
 
             # Build the multimodal message
             messages = [
+                {"role": "system", 
+                 "content": [
+                     {
+                         "type": "text", 
+                         "text": system_prompt
+                         }
+                    ]
+                },
                 {
-                    "role": "system",
+                    "role": "user",
                     "content": [
-                        {"type": "text", "text": prompt},
+                        {"type": "text", "text": user_prompt},
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url": f"data:image/jpeg;base64,{img_b64}"
+                                "url": f"data:image/png;base64,{img_b64}"
                             }
                         }
                     ]
                 },
             ]
         else:
-            # Only text message
-            messages = [
-                {
-                    "role": "system",
-                    "content": [{"type": "text", "text": prompt}]
-                }
-            ]
+            if user_prompt is None:
+                messages = [
+                    {
+                        "role": "system",
+                        "content": [{"type": "text", "text": system_prompt}]
+                    }
+                ]
+            else:
+                messages = [
+                    {
+                        "role": "system",
+                        "content": [{"type": "text", "text": system_prompt}]
+                    },
+                    {
+                        "role": "user",
+                        "content": [{"type": "text", "text": user_prompt}]
+                    }
+                ]
 
         response = self.client.chat.completions.create(
             model=model,

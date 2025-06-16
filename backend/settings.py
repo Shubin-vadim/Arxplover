@@ -13,10 +13,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    APP_VERSION: str
-
     APP_LOG_LEVEL: str
-    APP_LOG_PATH: str | None = None
 
     LLM_API_KEY: str
     LLM_BASE_URL: str
@@ -24,6 +21,4 @@ class Settings(BaseSettings):
 
 @lru_cache()
 def get_settings() -> Settings:
-    return Settings(  # type: ignore
-        APP_VERSION=distribution("arxplover").version,
-    )
+    return Settings()  # type: ignore

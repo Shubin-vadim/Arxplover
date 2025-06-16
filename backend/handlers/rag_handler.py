@@ -10,12 +10,6 @@ class RAGHandler:
     Provides methods to load documents and answer queries using the RAG pipeline.
     """
     def __init__(self, config: ConfigModel):
-        """
-        Initialize the RAGHandler with the given configuration.
-
-        Args:
-            config (ConfigModel): The application configuration.
-        """
         self.rag = MultimodalRAG(config)
         logger.info("RAGHandler initialized.")
 
