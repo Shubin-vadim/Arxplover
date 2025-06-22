@@ -115,7 +115,7 @@ vector_database_parameters:
   top_k: 5
 ```
 
-## 📖 Usage
+## Usage
 
 ### Web Interface (Chainlit)
 
@@ -220,7 +220,7 @@ mypy backend
 pylint backend
 ```
 
-## 📊 Image Processing Capabilities
+## Image Processing Capabilities
 
 ### Supported Image Types
 - **Charts/Graphs**: Bar charts, line graphs, pie charts, scatter plots
@@ -236,7 +236,7 @@ pylint backend
 - **Scientific Interpretation**: Context-aware analysis for research documents
 - **Metadata Extraction**: File paths, dimensions, and technical details
 
-## �� API Reference
+## API Reference
 
 ### RAGHandler Methods
 
@@ -257,7 +257,7 @@ pylint backend
 - `resize_images(image_paths, size)`: Resize images
 - `summarize_images(image_paths, resize, size)`: Summarize images using AI
 
-## 🚀 Deployment
+## Deployment
 
 ### Local Deployment
 ```bash
