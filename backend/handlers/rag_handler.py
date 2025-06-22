@@ -1,14 +1,18 @@
 import logging
-from backend.core.schemas.config_schemas import ConfigModel
+
 from backend.core.ai.multimodal_rag import MultimodalRAG
+from backend.core.schemes.config_schemes import ConfigModel
+
 
 logger = logging.getLogger(__name__)
+
 
 class RAGHandler:
     """
     Handler for RAG (Retrieval-Augmented Generation) operations.
     Provides methods to load documents and answer queries using the RAG pipeline.
     """
+
     def __init__(self, config: ConfigModel):
         self.rag = MultimodalRAG(config)
         logger.info("RAGHandler initialized.")
@@ -25,7 +29,7 @@ class RAGHandler:
         self.rag.process_pdf(pdf_path, output_dir)
         logger.info("PDF loaded and indexed successfully.")
 
-    def query(self, user_query: str) -> str:
+    def query(self, user_query: str):
         """
         Answer a user query using the indexed data and the RAG pipeline.
 
@@ -38,4 +42,4 @@ class RAGHandler:
         logger.info(f"Processing query: {user_query}")
         answer = self.rag.generate_answer(user_query)
         logger.info("Query processed and answer generated.")
-        return answer 
+        return answer

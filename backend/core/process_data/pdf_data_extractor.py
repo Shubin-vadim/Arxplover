@@ -1,15 +1,18 @@
-from docling.datamodel.base_models import InputFormat
-from docling.datamodel.pipeline_options import PdfPipelineOptions
-from docling.document_converter import DocumentConverter, PdfFormatOption
-from docling_core.types.doc import TableItem, PictureItem, TextItem
-
 import logging
 from pathlib import Path
 
+from docling.datamodel.base_models import InputFormat
+from docling.datamodel.pipeline_options import PdfPipelineOptions
+from docling.document_converter import DocumentConverter, PdfFormatOption
+from docling_core.types.doc import PictureItem, TableItem, TextItem
+
+
 logger = logging.getLogger(__name__)
+
 
 class PDFDataExtractor:
     """PDFDataExtractor class for extracting elements from PDF files using Docling."""
+
     @staticmethod
     def extract_elements(file_path: str, output_dir: str) -> dict:
         """
@@ -22,8 +25,8 @@ class PDFDataExtractor:
         Returns:
             Dict with lists of texts, tables, and image paths.
         """
-        logger.info(f"Extracting elements from PDF using Docling: {file_path}")
-        
+        logger.info("Extracting elements from PDF using Docling: %s", file_path)
+
         IMAGE_RESOLUTION_SCALE = 2.0
         pipeline_options = PdfPipelineOptions()
         pipeline_options.images_scale = IMAGE_RESOLUTION_SCALE
@@ -52,7 +55,6 @@ class PDFDataExtractor:
                 table_df = element.export_to_dataframe()
                 tables.append(table_df.to_markdown(index=False))
 
-                # Save table image (optional)
                 element_image_filename = Path(
                     f"{output_dir}/{doc_filename}-table-{table_counter}.png"
                 )
@@ -70,19 +72,21 @@ class PDFDataExtractor:
                 images.append(str(element_image_filename))
 
             else:
-                # Handle other element types like text
                 if isinstance(element, TextItem):
                     texts.append(element.text)
 
-        logger.info(f"Extracted {len(texts)} text blocks, {len(tables)} tables, and {len(images)} images.")
-        return {
-            "texts": texts,
-            "tables": tables,
-            "images": images
-        }
+        logger.info(
+            "Extracted %d text blocks, %d tables, and %d images.",
+            len(texts),
+            len(tables),
+            len(images),
+        )
+        return {"texts": texts, "tables": tables, "images": images}
 
     @staticmethod
-    def categorize_elements(elements_dict: dict) -> tuple[list[str], list[str], list[str]]:
+    def categorize_elements(
+        elements_dict: dict,
+    ) -> tuple[list[str], list[str], list[str]]:
         """
         Categorize extracted elements into texts, tables and images.
 
@@ -96,5 +100,5 @@ class PDFDataExtractor:
         return (
             elements_dict["texts"],
             elements_dict["tables"],
-            elements_dict["images"]
+            elements_dict["images"],
         )

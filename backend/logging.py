@@ -2,6 +2,7 @@ import logging
 import os
 
 import colorlog
+
 from backend.core.constants.log_color import LogColor
 
 
@@ -12,7 +13,6 @@ def configure_application():
         """Configure the base logger for the application."""
         root_logger = logging.getLogger()
 
-        # If logger exists
         if root_logger.handlers:
             logging.debug("Logger already configured. Skipping reconfiguration.")
             return
