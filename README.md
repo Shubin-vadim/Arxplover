@@ -119,7 +119,7 @@ vector_database_parameters:
 Start the web application:
 ```bash
 cd frontend
-chainlit run frontend.py
+chainlit run main.py -w
 ```
 
 Open your browser and navigate to `http://localhost:8000`
@@ -167,7 +167,7 @@ pip install -e .
 
 # Start web interface
 cd frontend
-chainlit run frontend.py
+chainlit run main.py -w
 ```
 
 ### Docker Deployment
@@ -198,8 +198,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Built with [Unstructured](https://github.com/Unstructured-IO/unstructured) for PDF processing
-- Uses [LangChain](https://github.com/langchain-ai/langchain) for RAG capabilities
+- Built with [Docling](https://github.com/docling-project/docling) for PDF processing
+- Uses [LangChain](https://github.com/langchain-ai/langchain) for development
 - Powered by OpenAI's multimodal models for image analysis
 - Web interface built with [Chainlit](https://github.com/Chainlit/chainlit)
 
