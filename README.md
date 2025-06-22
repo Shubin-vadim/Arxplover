@@ -1,6 +1,6 @@
 # ArXplorer - Multimodal PDF Document Analysis System
 
-ArXplorer is a comprehensive multimodal RAG (Retrieval-Augmented Generation) system for analyzing PDF documents with support for extracting and processing text, tables, and images using artificial intelligence.
+ArXplorer is a comprehensive multimodal system for analyzing PDF documents with support for extracting and processing text, tables, and images using artificial intelligence.
 
 ## Key Features
 
@@ -53,9 +53,6 @@ MultimodalRAG/
 ├── frontend/                   # Web interface
 │   ├── frontend.py             # Chainlit web application
 │   └── test_chainlit.py        # Interface tests
-├── tests/                      # Tests
-│   ├── test_unstructed.py      # PDF processing tests
-│   └── test_unstructed_simple.py
 ├── scripts/                    # Scripts
 │   └── code_quality_check.sh   # Code quality checks
 ├── setup.py                    # Package configuration
@@ -127,58 +124,6 @@ chainlit run frontend.py
 
 Open your browser and navigate to `http://localhost:8000`
 
-### Programmatic Interface
-
-#### Basic PDF Processing
-
-```python
-from backend.handlers.rag_handler import RAGHandler
-from backend.utils import load_config_yaml
-
-# Load configuration
-config = load_config_yaml('backend/config.yml')
-rag_handler = RAGHandler(config)
-
-# Process PDF with image extraction
-pdf_path = 'document.pdf'
-output_dir = 'extracted_content'
-rag_handler.load(pdf_path, output_dir)
-
-# Get answer to a question
-answer = rag_handler.query("What are the main conclusions presented in the document?")
-print(answer)
-```
-
-#### Direct MultimodalRAG Usage
-
-```python
-from backend.core.ai.multimodal_rag import MultimodalRAG
-from backend.core.schemas.config_schemas import ConfigModel
-
-# Create configuration
-config = ConfigModel(
-    chunking={"chunk_size": 700, "chunk_overlap": 140},
-    types_of_models={
-        "llm_name": "openai/gpt-4o-2024-05-13",
-        "mm_llm_name": "openai/gpt-4o-2024-05-13",
-        "embedding_model_name": "intfloat/multilingual-e5-large-instruct"
-    },
-    vector_database_parameters={
-        "collection_name": "mm_rag_vectorstore",
-        "top_k": 5
-    }
-)
-
-# Initialize RAG system
-rag = MultimodalRAG(config)
-
-# Process PDF
-rag.process_pdf("document.pdf", "output_dir")
-
-# Generate answer
-answer = rag.generate_answer("Describe the charts in the document")
-print(answer)
-```
 
 ## Configuration
 
@@ -211,51 +156,7 @@ vector_database_parameters:
 ```bash
 # Run all checks
 ./scripts/code_quality_check.sh
-
-# Or individually
-flake8
-isort .
-black .
-mypy backend
-pylint backend
 ```
-
-## Image Processing Capabilities
-
-### Supported Image Types
-- **Charts/Graphs**: Bar charts, line graphs, pie charts, scatter plots
-- **Diagrams**: Flowcharts, schematics, process diagrams
-- **Tables**: Data tables, comparison matrices
-- **Formulas**: Mathematical equations, chemical formulas
-- **Photographs**: Microscopy, experimental setups
-- **Screenshots**: Software interfaces, simulation results
-
-### Analysis Features
-- **Text Extraction**: OCR for all visible text, labels, and values
-- **Data Analysis**: Trend identification, pattern recognition
-- **Scientific Interpretation**: Context-aware analysis for research documents
-- **Metadata Extraction**: File paths, dimensions, and technical details
-
-## API Reference
-
-### RAGHandler Methods
-
-#### Core Processing
-- `load(pdf_path, output_dir)`: Process PDF and extract all content
-- `query(user_query)`: Query across all content types
-
-### MultimodalRAG Methods
-
-#### Document Processing
-- `process_pdf(pdf_path, output_dir)`: Process PDF and index in vector database
-- `retrieve_context(query, top_k)`: Retrieve relevant context for query
-- `generate_answer(query)`: Generate answer using LLM
-
-### ImageProcessor Methods
-
-#### Image Processing
-- `resize_images(image_paths, size)`: Resize images
-- `summarize_images(image_paths, resize, size)`: Summarize images using AI
 
 ## Deployment
 
@@ -291,7 +192,7 @@ docker run -p 8000:8000 -e LLM_API_KEY=your_key arxplorer
 - Follow `flake8` for code style
 - Add types with `mypy`
 
-##License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
