@@ -2,7 +2,7 @@
 
 ArXplorer is a comprehensive multimodal RAG (Retrieval-Augmented Generation) system for analyzing PDF documents with support for extracting and processing text, tables, and images using artificial intelligence.
 
-## 🚀 Key Features
+## Key Features
 
 ### Enhanced PDF Processing
 - **Text Extraction**: Intelligent chunking and processing of textual content
@@ -25,7 +25,7 @@ ArXplorer is a comprehensive multimodal RAG (Retrieval-Augmented Generation) sys
 - Retrieval-augmented generation for comprehensive answers
 - Cross-modal query capabilities
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 MultimodalRAG/
@@ -63,7 +63,7 @@ MultimodalRAG/
 └── .pylintrc                   # Linter configuration
 ```
 
-## ��️ Installation
+## Installation
 
 ### Requirements
 - Python 3.10+
