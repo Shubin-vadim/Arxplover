@@ -1,14 +1,22 @@
-from backend.core.ai.prompts.summary_images_prompt import SUMMARY_IMAGES_PROMPT, USER_IMAGES_PROMPT
-from backend.core.schemas.config_schemas import ConfigModel
-from backend.core.ai.ai_service import AIService
-from PIL import Image
-import os
 import logging
+import os
+
+from PIL import Image
+
+from backend.core.ai.ai_service import AIService
+from backend.core.ai.prompts.summary_images_prompt import (
+    SUMMARY_IMAGES_PROMPT,
+    USER_IMAGES_PROMPT,
+)
+from backend.core.schemes.config_schemes import ConfigModel
+
 
 logger = logging.getLogger(__name__)
 
+
 class ImageProcessor:
     """Processor for handling images, including resizing and summarization."""
+
     def __init__(self, config: ConfigModel):
         self.config = config
         self.ai_service = AIService()
@@ -23,11 +31,12 @@ class ImageProcessor:
         Returns:
             List of file paths to resized images.
         """
-        logger.info(f"Resizing {len(image_paths)} images to size {size}.")
+        logger.info("Resizing %d images to size %s.", len(image_paths), size)
+
         resized_paths = []
         for path in image_paths:
             img = Image.open(path)
-            img = img.convert('RGB')
+            img = img.convert("RGB")
             img = img.resize(size)
             base, ext = os.path.splitext(path)
             new_path = f"{base}_resized{ext}"
@@ -36,7 +45,9 @@ class ImageProcessor:
         logger.info("Image resizing complete.")
         return resized_paths
 
-    def summarize_images(self, image_paths: list[str], resize: bool = True, size=(512, 512)) -> list[str]:
+    def summarize_images(
+        self, image_paths: list[str], resize: bool = True, size=(512, 512)
+    ) -> list[str]:
         """Summarize a list of images using the AI service.
 
         Args:
@@ -48,18 +59,19 @@ class ImageProcessor:
             List of image summaries as strings.
         """
         if resize:
-            logger.info(f"Resizing images before summarization.")
+            logger.info("Resizing images before summarization.")
             image_paths = self.resize_images(image_paths, size=size)
-        logger.info(f"Summarizing {len(image_paths)} images.")
+        logger.info("Summarizing %d images.", len(image_paths))
+
         results = [
             self.ai_service.send_request(
-                config=self.config,
                 system_prompt=SUMMARY_IMAGES_PROMPT,
                 user_prompt=USER_IMAGES_PROMPT,
                 image_path=img_path,
-                model=self.config.types_of_models.mm_llm_name
-            ) for img_path in image_paths
+                model=self.config.types_of_models.mm_llm_name,
+                temperature=self.config.mm_llm_parameters.temperature
+            )
+            for img_path in image_paths
         ]
         logger.info("Image summarization complete.")
         return results
-

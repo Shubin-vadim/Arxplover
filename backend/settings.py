@@ -1,6 +1,5 @@
 import logging
 from functools import lru_cache
-from importlib.metadata import distribution
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
