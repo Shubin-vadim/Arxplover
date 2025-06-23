@@ -35,20 +35,6 @@ async def set_starters():
         ),
     ]
 
-@cl.set_chat_profiles
-async def chat_profile():
-    """Chat profile for the chatbot."""
-    return [
-        cl.ChatProfile(
-            name="GPT-4o-mini",
-            markdown_description="Model for getting a quick answer.",
-        ),
-        cl.ChatProfile(
-            name="GPT-4o",
-            markdown_description="Model for a more accurate and generalized answer.",
-        ),
-    ]
-
 @cl.on_message
 async def main(msg: cl.Message) -> None:
     """Main function for handling incoming messages."""
