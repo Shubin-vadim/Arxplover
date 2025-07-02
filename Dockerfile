@@ -18,4 +18,4 @@ RUN pip install --no-cache-dir .
 EXPOSE 8000
 
 # Command to run the application
-CMD ["chainlit", "run", "frontend/frontend.py", "--port", "8000"]
+CMD ["chainlit", "run", "main.py", "--port", "8000"]
